@@ -1,0 +1,339 @@
+﻿@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+html, body {
+	height: 100%;
+}
+body {
+	padding: 75px 0 0 0;
+	font-family: NanumGothic;
+}
+
+td {
+	font-size: 18px;
+}
+
+b {
+	color: #53879C;
+} /*<b> 태그 color*/
+
+.b-b {
+	color:#000;
+	}
+
+li {
+	font-size: 18px;
+}
+
+ol {
+	margin-left: 15px;
+}
+
+ol li {
+	font-size: 18px;
+}
+
+.container ul li {
+	list-style: inside;
+	font-size: 18px;
+}
+
+p {
+	font-size: 18px;
+}
+
+h2 {
+	font-size: 25px;
+}
+
+h4 p {
+	font-size: 18px;
+}
+
+.go-home img{
+	margin:15px;
+}
+
+.inner-addon {
+	position: relative;
+}
+.navmenu-inverse .fa {
+	color: #ffffff;
+}
+.inner-addon .fa {
+	position: absolute;
+	padding: 5px 0px;
+	z-index: 100;
+	font-size: 17px;
+	cursor: pointer;
+}
+.left-addon .fa {
+	left: 7px;
+}
+.right-addon .fa {
+	right: 7px;
+}
+.left-addon input {
+	padding-left: 30px;
+}
+.right-addon input {
+	padding-right: 30px;
+}
+.shap-target {
+	display: block;
+	position: relative;
+}
+ @media (max-width: 768px) {
+.shap-target {
+	top: -70px;
+}
+h4.shap-target {
+	padding-top: 70px;
+	margin-bottom: -60px !important;
+}
+}
+h4.shap-target2 {
+	padding-top: 70px;
+	margin-bottom: -60px !important;
+}
+.container section {
+	margin-bottom: 50px;
+}
+.container section p {
+	font-size: 18px;
+}
+.container section p img.width100 {
+	width: 100%;
+}
+@media (max-width: 768px) {
+.container section p img.width100 {
+	width: 100%;
+}
+}
+.container section h2 {
+	font-weight: bolder;
+	color: #557376;
+	margin-bottom: 40px;
+}
+.container > section > h4.shap-target {
+	font-weight: bolder;
+	color: #000000;
+	font-size: 20px;
+	margin-bottom: 18px;
+	border-bottom: 2px solid #3B4D6E;
+	padding-bottom: 8px;
+	margin-top: 40px;
+}
+.container > section > h4.shap-target2 {
+	font-weight: bolder;
+	color: #1b7b6f;
+    margin-bottom: 40px;
+    padding-bottom: 70px;
+	font-size: 25px;
+}
+.container section h4.info {
+	font-weight: bolder;
+	color: #333;
+	border-bottom: none;
+	margin-bottom: 5px;
+	margin-top: 40px;
+}
+.container section h4.success {
+	font-weight: bolder;
+	color: #333;
+	border-bottom: none;
+	margin-bottom: 5px;
+	margin-top: 40px;
+}
+.container section div table thead tr th, .container section div table tbody tr td {
+	vertical-align: middle;
+}
+.table-icon tbody tr th {
+	text-align: left;
+	width: 120px;
+}
+.table-icon tbody tr td {
+	font-size: 18px;
+	/*font-weight: bolder;*/
+	vertical-align: middle;
+}
+
+thead tr th {
+	font-size:18px;
+	}
+
+tbody tr th {
+	font-size:18px;
+	}
+
+tbody tr td {
+	font-size:18px;
+	}
+
+
+.container section .alert .icon {
+	margin-top: 0px;
+}
+.container section .alert .icon p {
+	margin-top: 20px;
+}
+ @media (max-width: 768px) {
+.container section .alert .icon p {
+	margin-top: 10px;
+}
+}
+.container section .line-normal {
+	line-height: normal;
+}
+.container ol {
+	font-size: 18px;
+}
+ol, ul {
+	padding-left: 10px;
+}
+.container ul {
+	font-size: 15px;
+}
+.top-5 {
+	margin-top: 5px;
+}
+.top-10 {
+	margin-top: 10px;
+}
+.bottom-10 {
+	margin-bottom: 10px;
+}
+.nopadding {
+	padding: 0;
+}
+section .alert ul {
+	padding-left: 15px;
+}
+.table-noline thead tr th, .table-noline thead tr td, .table-noline tbody tr th, .table-noline tbody tr td {
+	border: none;
+}
+.table-default thead tr th {
+	text-align: center;
+	background-color: #c9cacb;
+}
+.table-default tbody tr th {
+	text-align: center;
+    vertical-align: middle;
+}
+.table-default tbody tr th {
+	text-align: center;
+}
+.circle {
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	padding: 2px;
+	background: #000000;
+	color: #fff;
+	text-align: center;
+	display: inline-block;
+}
+
+.circle2 {
+	border-radius: 50%;
+	width: 22px;
+	height: 22px;	
+	background: #000000;
+	color: #fff;
+	text-align: center;
+	display: inline-block;
+}
+
+.img-border {
+	border: 1px solid #aaabab;
+	border-radius: 10px;
+	padding: 3px;
+}
+.img-border2 {
+	border-bottom: 1px solid #aaabab;	
+	padding: 15px;
+}
+.danger_box_01 {
+	width: auto;
+	border-radius: 5px;
+	padding: 25px 2px 25px 0px;
+	font-size: 18px;
+}
+#table-center{
+    vertical-align: middle;
+}
+
+.table-center tbody tr td{
+    vertical-align: middle;
+    text-align:center
+}
+
+.img-r img {
+	border: 1px solid #999;
+	border-radius: 3px;
+}
+ul.indent li {
+	list-style-position: outside;
+	margin-left:1em;
+}
+
+ul.dashed {
+  list-style-type: none;
+}
+ul.dashed > li {
+  text-indent: -11px;
+}
+ul.dashed > li:before {
+  content: "- ";
+  text-indent: -10px;
+}
+
+ul.indent li ul.indent2 li {
+	list-style-position: inside;
+	text-indent: -0.6em;
+	padding-left: -0.6em;
+    margin-left:0em;
+}
+
+#con_08 p {
+	font-size: 18px;
+}
+.row img {
+	border: 1px solid #aaabab;
+	border-radius: 10px;
+	padding: 10px;
+}
+.navmenu {
+	padding-bottom: 25px;
+}
+.bbb {
+	font-size: 20px;
+	color: #000;
+}
+.bbb2 {
+	font-size: 18px;
+	color: #000;
+}
+.wi-p {
+	text-indent: -0.5em;
+	padding-left: 1.7em;
+}
+div ul li ul li {
+	list-style: none;
+}
+ul > li > p > ul > li {
+	list-style: none;
+}
+ul.ul-h {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 1.5em;
+}
+
+ul.ul-h > li:before {
+	display: inline-block;
+	width: 1em;
+	margin-left: -1em;
+}
+
+ul li .img-top {
+	margin-bottom:3px;
+	}
