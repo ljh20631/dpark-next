@@ -113,7 +113,7 @@ h4.shap-target2 {
 	color: #557376;
 	margin-bottom: 40px;
 }
-.container > section > h4.shap-target {
+.container > section > article > h4.shap-target {
 	font-weight: bolder;
 	color: #000000;
 	font-size: 20px;
@@ -122,7 +122,7 @@ h4.shap-target2 {
 	padding-bottom: 8px;
 	margin-top: 40px;
 }
-.container > section > h4.shap-target2 {
+.container > section > article > h4.shap-target2 {
 	font-weight: bolder;
 	color: #1b7b6f;
     margin-bottom: 40px;
