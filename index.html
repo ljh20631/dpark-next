@@ -401,7 +401,7 @@
             let el = $this.$refs.articleRef[index];
 
             $this.scrollElement(el, -75);
-          })
+          });
         },
         scrollElement: function (el, yOffset = 0){
           const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
