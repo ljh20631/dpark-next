@@ -14,6 +14,7 @@
 
 <body>
   <div id="app">
+    <!-- header -->
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
@@ -39,6 +40,9 @@
         </div>
       </nav>
     </header>
+    <!--/header -->
+
+    <!-- search list -->
     <div v-if="searchResult.length">
       <ul class="search-result">        
         <li v-for="item in searchResult" class="search-item">
@@ -52,7 +56,9 @@
         </li>
       </ul>
     </div>
+    <!--/search list -->
 
+    <!-- manual contents -->
     <div v-if="!searchResult.length" v-for="i in 1" class="container">
       <span id="top"></span>
       <span id="contents-1" class="shap-target"></span>
@@ -289,7 +295,8 @@
           <br /><br /><br />
 
       </section>
-    </div>    
+    </div>
+    <!--/manual contents -->
 
   </div>
 
