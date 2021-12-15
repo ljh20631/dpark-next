@@ -342,10 +342,6 @@ ul.search-result{
 	list-style: none;
 }
 
-ul.search-result > li.search-item{
-
-}
-
 ul.search-result > li.search-item > span {
 	display: block;
 	padding: 10px 2px;
