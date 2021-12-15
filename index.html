@@ -396,12 +396,12 @@
 
           let $this = this;
 
-          window.setTimeout(function(){
+          $this.$nextTick(() => {
             let index = item.articleIndex;
             let el = $this.$refs.articleRef[index];
 
             $this.scrollElement(el, -75);
-          }, 100);
+          })
         },
         scrollElement: function (el, yOffset = 0){
           const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
