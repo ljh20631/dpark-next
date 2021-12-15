@@ -395,8 +395,7 @@
           this.searchResult = [];
 
           let $this = this;
-
-          $this.$nextTick(() => {
+          this.$nextTick(() => {
             let index = item.articleIndex;
             let el = $this.$refs.articleRef[index];
 
