@@ -23,8 +23,10 @@ var app = new Vue({
           this.textDom.push({
             sectionIndex: i,
             sectionText: s.querySelector('h2')?.innerText,
+
             articleIndex: j,
             articleText: a.querySelector('h4')?.innerText,
+            
             paragraphIndex: k,
             paragraphText: p.innerText,
           });
@@ -74,10 +76,13 @@ var app = new Vue({
 
         result.push({ 
           spanClass: spanClass,
+
           section: item.sectionText, 
           sectionYn: lastSectionIndex != item.sectionIndex,
+
           article: item.articleText, 
           articleIndex: item.articleIndex,
+
           text: text
         });
 
