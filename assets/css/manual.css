@@ -337,3 +337,67 @@ ul.ul-h > li:before {
 ul li .img-top {
 	margin-bottom:3px;
 	}
+
+ul.search-result{
+	list-style: none;
+}
+
+ul.search-result > li.search-item{
+
+}
+
+ul.search-result > li.search-item > span {
+	display: block;
+	padding: 10px 2px;
+}
+
+ul.search-result > li.search-item > span > a {
+	display: block;
+	text-decoration: none;
+	color: #333;
+}
+
+ul.search-result > li.search-item > span.search-border-top{
+	border-top: 8px solid #eee;
+}
+
+ul.search-result > li.search-item > span.search-border-bottom{
+	border-bottom: 1px solid #e9e9e9;
+}
+
+ul.search-result > li.search-item > span > p.search-section {
+	font-size: 20px;
+	font-weight: bolder;
+	padding-bottom: 7px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 7px;
+}
+
+ul.search-result > li.search-item > span > a > p.search-article {
+	color: #555;
+	font-size: 15px;
+	font-weight: bolder;
+	margin-left: 3px;
+	margin-bottom: 3px;
+	scroll-margin: 75px;
+}
+
+ul.search-result > li.search-item  > span > a > p.search-text {
+	color: #666;
+	font-size: 12px;
+	margin-bottom: 2px;
+}
+
+ul.search-result > li.search-item  > span > a > p.search-text > b {
+	font-weight: bolder;
+	color: #0091ca;
+	background-color: #b4ffad;
+}
+
+ul.search-result > li.search-item > span > a > p.search-text::before {
+	content: "...";
+}
+
+ul.search-result > li.search-item > span > a > p.search-text::after {
+	content: "...";
+}

@@ -33,25 +33,33 @@
                 <a class="nav-link disabled">Disabled</a>
               </li>
             </ul>
-            <input v-model="searchKeyword" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button v-on:click="search" class="btn btn-outline-success">Search</button>
+            <input @input="search" v-model="searchKeyword" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button :disabled="!searchKeyword.length || searchKeyword.length < 2" @click="search" class="btn btn-outline-success">Search</button>
           </div>
         </div>
       </nav>
     </header>
-    <div>
-      <span v-bind:title="searchKeyword">
-        {{searchKeyword}}
-      </span>
+    <div v-if="searchResult.length">
+      <ul class="search-result">        
+        <li v-for="item in searchResult" class="search-item">
+          <span :class="item.spanClass">
+            <p v-if="item.sectionYn" class="search-section">{{ item.section }}</p>
+            <a href="#" @click.prevent="goElement($event, item)">
+              <p class="search-article">{{ item.article }}</p>
+              <p class="search-text" v-html="item.text"></p>
+            </a>
+          </span>
+        </li>
+      </ul>
     </div>
 
-    <div class="container">
+    <div v-if="!searchResult.length" v-for="i in 1" class="container">
       <span id="top"></span>
       <span id="contents-1" class="shap-target"></span>
-      <section>
+      <section ref="sectionRef">
           <h2><img src="images/title_icon.png"> Safety instructions</h2>
 
-          <article>
+          <article ref="articleRef">
             <h4 id="contents-1-1" class="shap-target">IMPORTANT SAFETY INSTRUCTIONS</h4>
 
             <p><b>READ CAREFULLY AND KEEP FOR FUTURE REFERENCE.</b></p>
@@ -150,7 +158,7 @@
             <p>Please put the bent up frame side to the back, in order to support the restposition when cooking big loads. (Depending on model)</p>
           </article>
 
-          <article>
+          <article ref="articleRef">
             <h4 id="contents-1-2" class="shap-target">General safety</h4>
 
             <p>
@@ -204,7 +212,7 @@
             </p><br />
           </article>
 
-          <article>
+          <article ref="articleRef">
             <h4 id="contents-1-3" class="shap-target">Microwave operation precautions</h4>
             <p>Failure to observe the following safety precautions may result in harmful exposure to microwave energy.</p>
 
@@ -222,7 +230,7 @@
             </ul><br />
           </article>
 
-          <article>
+          <article ref="articleRef">
             <h4 id="contents-1-4" class="shap-target">Limited warranty</h4>
             <p>Samsung will charge a repair fee for replacing an accessory or repairing a cosmetic defect if the damage to the unit or accessory was caused by the customer. Items this stipulation covers include:</p>
 
@@ -242,7 +250,7 @@
             </p><br />
           </article>
 
-          <article>
+          <article ref="articleRef">
             <h4 id="contents-1-5" class="shap-target">Product group definition</h4>
             <p>
                 This product is a Group 2 Class B ISM equipment. The definition of group 2 which contains all ISM equipment in which radio-frequency energy is intentionally
@@ -252,7 +260,7 @@
             </p><br />
           </article>
 
-          <article>
+          <article ref="articleRef">
             <h4 id="contents-1-6" class="shap-target">Correct Disposal of This Product (Waste Electrical & Electronic Equipment)</h4>
             <table class="table table-noline">
                 <tbody>
@@ -290,51 +298,115 @@
       el: '#app',
       data: {
         searchKeyword: '',
-        textDom: []
+        searchResult: [],
+        textDom: [],
       },
       beforeMount: function() {
         let sections = this.$el.querySelectorAll('section');
         for (i = 0; i < sections.length; ++i) {
           let s = sections[i];
-          let section = { 
-            el: s,
-            text: s.querySelector("h2").innerText,
-            child: []
-          };
 
-          let articles = s.querySelectorAll("article");
+          let articles = s.querySelectorAll('article');
           for (j = 0; j < articles.length; j++){
             let a = articles[j];
-            let article = { 
-              el: a,
-              text: a.querySelector("h4").innerText,
-              child: []
-            };
 
-            let paragraphs = s.querySelectorAll("p,li");
+            let paragraphs = a.querySelectorAll('p,li');
             for (k = 0; k < paragraphs.length; k++){
               let p = paragraphs[k];
-              let paragraph = { 
-                el: p,
-                text: p.innerText,
-              };
 
-              article.child.push(paragraph);
+              let t = p.innerText;
+
+              this.textDom.push({
+                sectionIndex: i,
+                sectionText: s.querySelector('h2')?.innerText,
+                articleIndex: j,
+                articleText: a.querySelector('h4')?.innerText,
+                paragraphIndex: k,
+                paragraphText: p.innerText,
+              });
             }
-
-            section.child.push(article);
           }
 
-          this.textDom.push(section)
-
-          console.log(this.textDom);
         }
-
-        //console.log(this.data.textDom);
       },
       methods: {
         search: function() {
-          
+          let result = [];
+          let keyword = this.searchKeyword.toLowerCase();
+          var lastSectionIndex = -1;
+          var lastArticleIndex = -1;
+
+          if(!keyword || keyword.length < 2){
+            if(!keyword)
+              this.searchResult = [];
+
+            return;
+          }
+
+          for (i = 0; i < this.textDom.length; i++){
+            let item = this.textDom[i];
+
+            if(lastArticleIndex == item.articleIndex)
+              continue;
+
+            let index = item.paragraphText.toLowerCase().indexOf(this.searchKeyword);
+
+            if (index < 0)
+              continue;
+
+            let spanClass = lastSectionIndex == item.sectionIndex ? '' : 'search-border-top';
+            spanClass += (i + 1 >= this.textDom.length) || this.textDom[i + 1].sectionIndex != item.sectionIndex ? '' : ' search-border-bottom';
+
+            const padding = 70;
+            let start = index - padding < 0 ? 0 : index - padding;
+            let end = start + padding * 2 > item.paragraphText.length ? item.paragraphText.length : start + padding * 2;
+
+            let split = item.paragraphText.substring(start, end);
+            let lowerSplit = split.toLowerCase();
+            let bStart = lowerSplit.indexOf(keyword);
+            let bEnd = bStart + keyword.length;
+
+            let text = this.wrapTag(split, 'b', bStart, bEnd);
+
+            result.push({ 
+              spanClass: spanClass,
+              section: item.sectionText, 
+              sectionYn: lastSectionIndex != item.sectionIndex,
+              article: item.articleText, 
+              articleIndex: item.articleIndex,
+              text: text
+            });
+
+            lastSectionIndex = item.sectionIndex;
+            lastArticleIndex = item.articleIndex;
+          }
+
+          this.searchResult = result;
+        },
+        goElement: function(event, item){
+          this.searchKeyword = '';
+          this.searchResult = [];
+
+          let $this = this;
+
+          window.setTimeout(function(){
+            let index = item.articleIndex;
+            let el = $this.$refs.articleRef[index];
+
+            $this.scrollElement(el, -75);
+          }, 100);
+        },
+        scrollElement: function (el, yOffset = 0){
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+          window.scrollTo({top: y, behavior: 'smooth'});
+        },
+        wrapTag: function (text, tag, start, end) {
+            return text.substring(0, start)
+                + '<' + tag + '>'
+                + text.substring(start, end)
+                + '</' + tag + '>'
+                + (end ? text.substring(end) : '');
         }
       }
     })
