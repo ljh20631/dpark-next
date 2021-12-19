@@ -122,9 +122,11 @@ var headerApp = new Vue({
       });
     },
     toggleNavbar: function (){
-      const menuToggle = document.getElementById('navbarCollapse');
-      const bsCollapse = new bootstrap.Collapse(menuToggle);
-      bsCollapse.toggle();
+      if(!this.$refs.navbarToggleButton.offsetParent)
+        return;
+
+      const bsCollapse = new bootstrap.Collapse(this.$refs.navbarToggle);
+      bsCollapse.hide();
     },
     wrapTag: function (text, tag, start, end) {
         return text.substring(0, start)
