@@ -43,8 +43,7 @@ var headerApp = new Vue({
       if(!keyword || keyword.length < 2){
         if(!keyword){
           this.searchResult = [];
-          this.resultShow = false;
-          document.getElementById('body-app').style.display = 'block';
+          this.searchToggle(false);
         }
 
         return;
@@ -79,6 +78,7 @@ var headerApp = new Vue({
           spanClass: spanClass,
 
           section: item.sectionText, 
+          sectionIndex: item.sectionIndex,
           sectionYn: lastSectionIndex != item.sectionIndex,
 
           article: item.articleText, 
@@ -92,8 +92,16 @@ var headerApp = new Vue({
       }
 
       this.searchResult = result;
-      this.resultShow = true;
-      document.getElementById('body-app').style.display = 'none';
+      this.searchToggle(true);
+    },
+    searchToggle: function(isShow){
+      if(isShow){
+        this.resultShow = true;
+        document.getElementById('body-app').style.display = 'none';
+      }else{
+        this.resultShow = false;
+          document.getElementById('body-app').style.display = 'block';
+      }
     },
     refineText: function(text){
       if(!text)
@@ -104,19 +112,22 @@ var headerApp = new Vue({
     goElement: function(event, item){
       this.searchKeyword = '';
       this.searchResult = [];
+      this.searchToggle(false);
 
       let $this = this;
       this.$nextTick(() => {
-        let index = item.articleIndex;
-        let el = $this.$refs.articleRef[index];
+        let sectionIndex = item.sectionIndex;
+        let articleIndex = item.articleIndex;
 
-        $this.scrollElement(el, -75);
+        let curSectionIndex = window.swiper.getPos();
+        if(curSectionIndex != sectionIndex){
+          window.articleIndex = articleIndex;
+          window.swiper.slide(sectionIndex);
+        }else{
+          let sectionEl = document.querySelector("section:nth-of-type(" + (sectionIndex + 1) + ")");
+          window.goArticle(sectionEl, articleIndex, -105);
+        }
       });
-    },
-    scrollElement: function (el, yOffset = 0){
-      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
-      window.scrollTo({top: y, behavior: 'smooth'});
     },
     wrapTag: function (text, tag, start, end) {
         return text.substring(0, start)
@@ -132,15 +143,32 @@ let sliderContainer = document.getElementById('slider-container');
 let prevBtn = document.getElementById('slider-prev');
 let nextBtn = document.getElementById('slider-next');
 
-window.swiperEl = new Swipe(sliderContainer, {
+window.swiper = new Swipe(sliderContainer, {
   draggable: true,
   autoRestart: false,
   continuous: false,
   disableScroll: true,
   stopPropagation: true,
-  callback: function(index, element) {},
-  transitionEnd: function(index, element) {}
+  callback: function(index, element) {
+    console.log('callback', index, element);
+  },
+  transitionEnd: function(index, element) {
+    if(window.articleIndex){
+      window.goArticle(element, window.articleIndex, -105);
+    }
+    
+    window.articleIndex = undefined;
+  }
 });
 
-prevBtn.onclick = swiperEl.prev;
-nextBtn.onclick = swiperEl.next;
+window.goArticle = function(parent, index, margin){
+  let el = parent.querySelector("article:nth-of-type(" + (index + 1) + ")");
+
+  const y = el.getBoundingClientRect().top + window.pageYOffset + margin;
+  console.log(window.pageYOffset, el.getBoundingClientRect().top);
+
+  window.scrollTo({top: y, behavior: 'smooth'});
+}
+
+prevBtn.onclick = swiper.prev;
+nextBtn.onclick = swiper.next;

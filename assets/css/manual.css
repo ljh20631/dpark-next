@@ -3,16 +3,25 @@ html, body {
 	height: 100%;
 }
 body {
-	padding: 75px 0 0 0;
+	padding: 105px 0 0 0;
 	font-family: NanumGothic;
 }
 
+.navbar{
+  flex-direction: column;
+}
+
+.navbar input, 
+.navbar button {
+  font-size: 13px;
+}
+
 .navbar-nav{
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .navbar-nav .dropdown-menu{
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .container td {
@@ -404,6 +413,16 @@ ul.search-result > li.search-item > span > a > p.search-text::before {
 
 ul.search-result > li.search-item > span > a > p.search-text::after {
 	content: "...";
+}
+
+@media (max-width: 768px) {
+	.slider-center-left{
+		display: none;
+	}
+
+	.slider-center-right{
+		display: none;
+	}
 }
 
 .slider-center-left{
