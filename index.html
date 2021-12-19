@@ -33,14 +33,25 @@
                   <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Safety instructions 
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" @click.prevent="goElement($event, 0, 0)">IMPORTANT SAFETY INSTRUCTIONS</a></li>
+                    <li><a class="dropdown-item" @click.prevent="goElement($event, 0, 1);">General safety</a></li>
+                    <li><a class="dropdown-item" @click.prevent="goElement($event, 0, 2);">Microwave operation precautions</a></li>
+                    <li><a class="dropdown-item" @click.prevent="goElement($event, 0, 3);">Limited warranty</a></li>
+                    <li><a class="dropdown-item" @click.prevent="goElement($event, 0, 4);">Product group definition</a></li>
+                    <li><a class="dropdown-item" @click.prevent="goElement($event, 0, 5);">Correct Disposal of This Product</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Installation
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" @click.prevent="goElement($event, 1, 0);">What’s included</a></li>
+                    <li><a class="dropdown-item" @click.prevent="goElement($event, 1, 1);">Installation instructions</a></li>
                   </ul>
                 </li>
               </ul>
@@ -62,7 +73,7 @@
           <li v-for="item in searchResult" class="search-item">
             <span :class="item.spanClass">
               <p v-if="item.sectionYn" class="search-section">{{ item.section }}</p>
-              <a href="#" @click.prevent="goElement($event, item)">
+              <a href="#" @click.prevent="goElement($event, item.sectionIndex, item.articleIndex)">
                 <p class="search-article">{{ item.article }}</p>
                 <p class="search-text" v-html="item.text"></p>
               </a>

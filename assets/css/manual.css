@@ -450,8 +450,8 @@ ul.search-result > li.search-item > span > a > p.search-text::after {
   cursor: pointer;
   opacity: 0.4;
 }
-
+/* 
 .dropdown:hover .dropdown-menu {
   display: block;
   margin-top: 0;
-}
+} */

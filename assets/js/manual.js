@@ -109,25 +109,22 @@ var headerApp = new Vue({
       text = text.replace(/(\r\n|\n|\r)/gm, "");
       return text.trim();
     },
-    goElement: function(event, item){
+    goElement: function(event, sectionIndex, articleIndex){
+      this.toggleNavbar();
+
       this.searchKeyword = '';
       this.searchResult = [];
       this.searchToggle(false);
 
       let $this = this;
       this.$nextTick(() => {
-        let sectionIndex = item.sectionIndex;
-        let articleIndex = item.articleIndex;
-
-        let curSectionIndex = window.swiper.getPos();
-        if(curSectionIndex != sectionIndex){
-          window.articleIndex = articleIndex;
-          window.swiper.slide(sectionIndex);
-        }else{
-          let sectionEl = document.querySelector("section:nth-of-type(" + (sectionIndex + 1) + ")");
-          window.goArticle(sectionEl, articleIndex, -105);
-        }
+        window.goSection(sectionIndex, articleIndex);
       });
+    },
+    toggleNavbar: function (){
+      const menuToggle = document.getElementById('navbarCollapse');
+      const bsCollapse = new bootstrap.Collapse(menuToggle);
+      bsCollapse.toggle();
     },
     wrapTag: function (text, tag, start, end) {
         return text.substring(0, start)
@@ -143,6 +140,8 @@ let sliderContainer = document.getElementById('slider-container');
 let prevBtn = document.getElementById('slider-prev');
 let nextBtn = document.getElementById('slider-next');
 
+window.topMargin = -105;
+
 window.swiper = new Swipe(sliderContainer, {
   draggable: true,
   autoRestart: false,
@@ -150,22 +149,36 @@ window.swiper = new Swipe(sliderContainer, {
   disableScroll: true,
   stopPropagation: true,
   callback: function(index, element) {
-    console.log('callback', index, element);
   },
   transitionEnd: function(index, element) {
-    if(window.articleIndex){
-      window.goArticle(element, window.articleIndex, -105);
+    if(window.articleIndex >= 0){
+      window.goArticle(element, window.articleIndex);
     }
     
     window.articleIndex = undefined;
   }
 });
 
-window.goArticle = function(parent, index, margin){
+window.goSection = function(sectionIndex, articleIndex){
+  if(articleIndex == undefined){
+    window.swiper.slide(sectionIndex);
+    return;
+  }
+
+  let curSectionIndex = window.swiper.getPos();
+  if(curSectionIndex != sectionIndex){
+    window.articleIndex = articleIndex;
+    window.swiper.slide(sectionIndex);
+  }else{
+    let sectionEl = document.querySelector("section:nth-of-type(" + (sectionIndex + 1) + ")");
+    window.goArticle(sectionEl, articleIndex);
+  }
+}
+
+window.goArticle = function(parent, index){
   let el = parent.querySelector("article:nth-of-type(" + (index + 1) + ")");
 
-  const y = el.getBoundingClientRect().top + window.pageYOffset + margin;
-  console.log(window.pageYOffset, el.getBoundingClientRect().top);
+  const y = el.getBoundingClientRect().top + window.pageYOffset + window.topMargin;
 
   window.scrollTo({top: y, behavior: 'smooth'});
 }
