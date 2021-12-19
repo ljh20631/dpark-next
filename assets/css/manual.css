@@ -113,7 +113,7 @@ h4.shap-target2 {
 	color: #557376;
 	margin-bottom: 40px;
 }
-.container > section > article > h4.shap-target {
+.container section > article > h4.shap-target {
 	font-weight: bolder;
 	color: #000000;
 	font-size: 20px;
@@ -122,7 +122,7 @@ h4.shap-target2 {
 	padding-bottom: 8px;
 	margin-top: 40px;
 }
-.container > section > article > h4.shap-target2 {
+.container section > article > h4.shap-target2 {
 	font-weight: bolder;
 	color: #1b7b6f;
     margin-bottom: 40px;
@@ -396,4 +396,30 @@ ul.search-result > li.search-item > span > a > p.search-text::before {
 
 ul.search-result > li.search-item > span > a > p.search-text::after {
 	content: "...";
+}
+
+.slider-center-left{
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  z-index: 100;
+  font-size: 35px;
+  padding: 5px 5px 5px 0;
+  background-color: #ddd;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+.slider-center-right{
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  z-index: 100;
+  font-size: 35px;
+  padding: 5px 0 5px 5px;
+  background-color: #ddd;
+  cursor: pointer;
+  opacity: 0.4;
 }

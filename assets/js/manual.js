@@ -1,38 +1,36 @@
-var app = new Vue({
-  el: '#app',
+var headerApp = new Vue({
+  el: '#header-app',
   data: {
     searchKeyword: '',
     searchResult: [],
-    textDom: [],
+    resultShow: false,
+    textDom: []
   },
-  beforeMount: function() {
-    let sections = this.$el.querySelectorAll('section');
+  mounted: function(){
+    let sections = document.querySelectorAll('section');
     for (i = 0; i < sections.length; ++i) {
       let s = sections[i];
-
+    
       let articles = s.querySelectorAll('article');
       for (j = 0; j < articles.length; j++){
         let a = articles[j];
-
+    
         let paragraphs = a.querySelectorAll('p,li');
         for (k = 0; k < paragraphs.length; k++){
           let p = paragraphs[k];
-
-          let t = p.innerText;
-
+    
           this.textDom.push({
             sectionIndex: i,
-            sectionText: s.querySelector('h2')?.innerText,
-
+            sectionText: this.refineText(s.querySelector('h2')?.textContent),
+    
             articleIndex: j,
-            articleText: a.querySelector('h4')?.innerText,
+            articleText: this.refineText(a.querySelector('h4')?.textContent),
             
             paragraphIndex: k,
-            paragraphText: p.innerText,
+            paragraphText: this.refineText(p.textContent),
           });
         }
       }
-
     }
   },
   methods: {
@@ -43,8 +41,11 @@ var app = new Vue({
       var lastArticleIndex = -1;
 
       if(!keyword || keyword.length < 2){
-        if(!keyword)
+        if(!keyword){
           this.searchResult = [];
+          this.resultShow = false;
+          document.getElementById('body-app').style.display = 'block';
+        }
 
         return;
       }
@@ -91,6 +92,14 @@ var app = new Vue({
       }
 
       this.searchResult = result;
+      this.resultShow = true;
+      document.getElementById('body-app').style.display = 'none';
+    },
+    refineText: function(text){
+      if(!text)
+        return text;
+      text = text.replace(/(\r\n|\n|\r)/gm, "");
+      return text.trim();
     },
     goElement: function(event, item){
       this.searchKeyword = '';
@@ -117,4 +126,21 @@ var app = new Vue({
             + (end ? text.substring(end) : '');
     }
   }
-})
+});
+
+let sliderContainer = document.getElementById('slider-container');
+let prevBtn = document.getElementById('slider-prev');
+let nextBtn = document.getElementById('slider-next');
+
+window.swiperEl = new Swipe(sliderContainer, {
+  draggable: true,
+  autoRestart: false,
+  continuous: false,
+  disableScroll: true,
+  stopPropagation: true,
+  callback: function(index, element) {},
+  transitionEnd: function(index, element) {}
+});
+
+prevBtn.onclick = swiperEl.prev;
+nextBtn.onclick = swiperEl.next;
