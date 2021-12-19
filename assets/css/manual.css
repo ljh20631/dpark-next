@@ -7,27 +7,35 @@ body {
 	font-family: NanumGothic;
 }
 
-td {
+.navbar-nav{
+  font-size: 12px;
+}
+
+.navbar-nav .dropdown-menu{
+  font-size: 12px;
+}
+
+.container td {
 	font-size: 18px;
 }
 
-b {
+.container b {
 	color: #53879C;
 } /*<b> 태그 color*/
 
-.b-b {
+.container .b-b {
 	color:#000;
-	}
-
-li {
-	font-size: 18px;
 }
 
-ol {
+.container li {
+  font-size: 18px;
+}
+
+.container ol {
 	margin-left: 15px;
 }
 
-ol li {
+.container ol li {
 	font-size: 18px;
 }
 
@@ -36,15 +44,15 @@ ol li {
 	font-size: 18px;
 }
 
-p {
+.container p {
 	font-size: 18px;
 }
 
-h2 {
+.container h2 {
 	font-size: 25px;
 }
 
-h4 p {
+.container h4 p {
 	font-size: 18px;
 }
 
@@ -422,4 +430,9 @@ ul.search-result > li.search-item > span > a > p.search-text::after {
   background-color: #ddd;
   cursor: pointer;
   opacity: 0.4;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
 }
