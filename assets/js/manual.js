@@ -2,32 +2,45 @@ var headerApp = new Vue({
   el: '#header-app',
   data: {
     searchKeyword: '',
+    searchResultIndex: [],
     searchResult: [],
     resultShow: false,
-    textDom: []
+    articleList: [],
+    paragraphList: []
   },
   mounted: function(){
     let sections = document.querySelectorAll('section');
     for (i = 0; i < sections.length; ++i) {
       let s = sections[i];
+      let sectionText = this.refineText(s.querySelector('h2')?.textContent);
     
       let articles = s.querySelectorAll('article');
       for (j = 0; j < articles.length; j++){
         let a = articles[j];
+        let articleText = this.refineText(a.querySelector('h4')?.textContent);
+
+        this.articleList.push({
+          sectionIndex: i,
+          sectionText: sectionText,
+  
+          articleIndex: j,
+          articleText: articleText,
+        });
     
         let paragraphs = a.querySelectorAll('p,li');
         for (k = 0; k < paragraphs.length; k++){
           let p = paragraphs[k];
+          let paragraphText = this.refineText(p.textContent);
     
-          this.textDom.push({
+          this.paragraphList.push({
             sectionIndex: i,
-            sectionText: this.refineText(s.querySelector('h2')?.textContent),
+            sectionText: sectionText,
     
             articleIndex: j,
-            articleText: this.refineText(a.querySelector('h4')?.textContent),
+            articleText: articleText,
             
             paragraphIndex: k,
-            paragraphText: this.refineText(p.textContent),
+            paragraphText: paragraphText,
           });
         }
       }
@@ -35,6 +48,7 @@ var headerApp = new Vue({
   },
   methods: {
     search: function() {
+      let resultIndex = [];
       let result = [];
       let keyword = this.searchKeyword.toLowerCase();
       var lastSectionIndex = -1;
@@ -49,19 +63,44 @@ var headerApp = new Vue({
         return;
       }
 
-      for (i = 0; i < this.textDom.length; i++){
-        let item = this.textDom[i];
+      for( i = 0; i < this.articleList.length; i++){
+        let item = this.articleList[i];
+
+        let index = item.articleText.toLowerCase().indexOf(keyword);
+
+        if (index < 0)
+          continue;
+
+        let articleText = item.articleText.toLowerCase();
+        let bStart = articleText.indexOf(keyword);
+        let bEnd = bStart + keyword.length;
+
+        let text = this.wrapTag(articleText, 'b', bStart, bEnd);
+
+        resultIndex.push({ 
+          section: item.sectionText, 
+          sectionIndex: item.sectionIndex,
+
+          article: text, 
+          articleIndex: item.articleIndex,
+        });
+      }
+
+      this.searchResultIndex = resultIndex;
+
+      for (i = 0; i < this.paragraphList.length; i++){
+        let item = this.paragraphList[i];
 
         if(lastArticleIndex == item.articleIndex)
           continue;
 
-        let index = item.paragraphText.toLowerCase().indexOf(this.searchKeyword);
+        let index = item.paragraphText.toLowerCase().indexOf(keyword);
 
         if (index < 0)
           continue;
 
         let spanClass = lastSectionIndex == item.sectionIndex ? '' : 'search-border-top';
-        spanClass += (i + 1 >= this.textDom.length) || this.textDom[i + 1].sectionIndex != item.sectionIndex ? '' : ' search-border-bottom';
+        spanClass += (i + 1 >= this.paragraphList.length) || this.paragraphList[i + 1].sectionIndex != item.sectionIndex ? '' : ' search-border-bottom';
 
         const padding = 70;
         let start = index - padding < 0 ? 0 : index - padding;
@@ -92,6 +131,7 @@ var headerApp = new Vue({
       }
 
       this.searchResult = result;
+
       this.searchToggle(true);
     },
     searchToggle: function(isShow){

@@ -69,6 +69,18 @@
 
       <!-- search list -->
       <div v-if="resultShow">
+        <div v-if="searchResultIndex.length" class="search-result-index-subject">
+          Index result
+        </div>
+        <ul v-if="searchResultIndex.length" class="search-result-index">
+          <li v-for="item in searchResultIndex" class="search-item">
+            <span>
+              <a href="#" @click.prevent="goElement($event, item.sectionIndex, item.articleIndex)">
+                <p class="search-article" v-html="item.article"></p>
+              </a>
+            </span>
+          </li>
+        </ul>
         <ul class="search-result">
           <li v-for="item in searchResult" class="search-item">
             <span :class="item.spanClass">

@@ -353,9 +353,55 @@ ul.ul-h > li:before {
 
 ul li .img-top {
 	margin-bottom:3px;
-	}
+}
 
-ul.search-result{
+div.search-result-index-subject{
+	margin: 0 10px;
+	padding: 10px 10px;
+	font-size: 20px;
+	font-weight: bolder;
+	background-color: #eee;
+}
+
+ul.search-result-index {
+	list-style: none;
+}
+
+ul.search-result-index > li.search-item {
+	border-bottom: 1px solid #e9e9e9;
+}
+
+ul.search-result-index > li.search-item > span {
+	display: block;
+	padding: 10px 2px;
+}
+
+ul.search-result-index > li.search-item > span > a {
+	display: block;
+	text-decoration: none;
+	color: #333;
+}
+
+ul.search-result-index > li.search-item > span > a > p {
+	margin: 0;
+}
+
+ul.search-result-index > li.search-item > span > a > p.search-article {
+	color: #555;
+	font-size: 15px;
+	font-weight: bolder;
+	margin-left: 3px;
+	margin-bottom: 3px;
+	scroll-margin: 75px;
+}
+
+ul.search-result-index > li.search-item  > span > a > p.search-article > b {
+	font-weight: bolder;
+	color: #0091ca;
+	background-color: #b4ffad;
+}
+
+ul.search-result {
 	list-style: none;
 }
 
@@ -370,11 +416,11 @@ ul.search-result > li.search-item > span > a {
 	color: #333;
 }
 
-ul.search-result > li.search-item > span.search-border-top{
+ul.search-result > li.search-item > span.search-border-top {
 	border-top: 8px solid #eee;
 }
 
-ul.search-result > li.search-item > span.search-border-bottom{
+ul.search-result > li.search-item > span.search-border-bottom {
 	border-bottom: 1px solid #e9e9e9;
 }
 
@@ -401,6 +447,7 @@ ul.search-result > li.search-item  > span > a > p.search-text {
 	margin-bottom: 2px;
 }
 
+ul.search-result > li.search-item  > span > a > p.search-article > b,
 ul.search-result > li.search-item  > span > a > p.search-text > b {
 	font-weight: bolder;
 	color: #0091ca;
