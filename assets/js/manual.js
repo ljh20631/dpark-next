@@ -165,6 +165,9 @@ var headerApp = new Vue({
       if(!this.$refs.navbarToggleButton.offsetParent)
         return;
 
+      if(!this.$refs.navbarToggle.offsetParent)
+        return;
+
       const bsCollapse = new bootstrap.Collapse(this.$refs.navbarToggle);
       bsCollapse.hide();
     },
